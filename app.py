@@ -27,9 +27,7 @@ def base64_to_image(base64_string):
     image_bytes = base64.b64decode(base64_data)
     # Convert the bytes to numpy array
     image_array = np.frombuffer(image_bytes, dtype=np.uint8)
-    # Decode the numpy array as an image using OpenCV
-    image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
-    return image
+    return cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
 
 @socketio.on("connect")
