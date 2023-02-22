@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 ADD . . 
 
-CMD gunicorn app:app
+CMD python app.py
