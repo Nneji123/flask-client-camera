@@ -56,6 +56,10 @@ Alternatively, you can use Docker Compose to start the application: `docker-comp
 
 ## How to deploy the application
 
+Click the button below to deploy the application to railway
+  
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/Fr7c3B?referralCode=ZYOf2M)
+
 ## License
 [MIT]
 
