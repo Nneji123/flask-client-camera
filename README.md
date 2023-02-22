@@ -28,7 +28,7 @@ The application was built using the following tools:
 - Socket.IO: A library that enables real-time, bidirectional communication between web clients and servers.
 - OpenCV: A computer vision library with Python bindings.
 - Docker: A tool designed to make it easier to create, deploy, and run applications by using containers.
-- 
+  
 
 
 ## How to run the application (using virtual environment)
@@ -47,7 +47,7 @@ The application was built using the following tools:
 
 ## How to run the application (using Docker and Docker Compose)
 
-1. Clone the repository: git clone https://github.com/your_username/real-time-image-processing.git
+1. Clone the repository: `git clone https://github.com/your_username/real-time-image-processing.git`
 2. Install Docker and Docker Compose on your machine
 3. Build the Docker image: `docker build -t image-processing .`
 4. Start the Docker container: `docker run -p 5000:5000 -it image-processing`
