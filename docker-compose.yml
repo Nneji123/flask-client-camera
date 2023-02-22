@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    container_name: flask-client-camera
+    command: python app.py
+    ports:
+      - 8080:5000
+    volumes:
+      - .:/app
