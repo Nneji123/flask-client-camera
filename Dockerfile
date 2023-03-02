@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.8.13-slim-bullseye
 
 WORKDIR /app
 
@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 ADD . . 
 
-CMD gunicorn -k eventlet app:app
+CMD python app.py
