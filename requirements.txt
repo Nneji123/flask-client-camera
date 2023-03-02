@@ -1,9 +1,11 @@
 opencv_python==4.7.0.68
 numpy==1.24.2
-eventlet==0.17.4
-Flask==0.10.1
-Flask-Mail==0.9.1
-Flask-SocketIO==1.1
+Flask==1.1.1
+Flask-Session==0.3.1
+Flask-SocketIO==4.2.1
 gunicorn==18.0.0
+eventlet==0.25.1
+requests==2.23.0
+Werkzeug==0.16.0
 
 # gevent-socketio
