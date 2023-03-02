@@ -8,7 +8,7 @@ from flask_socketio import SocketIO, emit
 
 app = Flask(__name__, static_folder="./templates/static")
 app.config["SECRET_KEY"] = "secret!"
-socketio = SocketIO(app, async_mode="eventlet")
+socketio = SocketIO(app)
 
 
 @app.route("/favicon.ico")
