@@ -1,10 +1,10 @@
-Flask-SocketIO==4.3.1
-python-engineio==3.13.2
-python-socketio==4.6.0
-Flask==2.0.3
-Werkzeug==2.0.3
 opencv_python==4.7.0.68
 numpy==1.24.2
-eventlet==0.30.2
-gunicorn==18.0
+eventlet==0.17.4
+Flask==0.10.1
+Flask-Mail==0.9.1
+Flask-SocketIO==1.1
+greenlet==0.4.9
+gunicorn==18.0.0
+
 # gevent-socketio
