@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 ADD . . 
 
-CMD python app.py
+CMD gunicorn -k eventlet -w 1 app:app
