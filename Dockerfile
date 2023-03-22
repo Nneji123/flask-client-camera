@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 ADD . . 
 
-CMD gunicorn --worker-class eventlet -w 1 wsgi:app
+CMD python app.py
