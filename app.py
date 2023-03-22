@@ -139,4 +139,4 @@ def index():
 
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, port=5000, host='0.0.0.0')
+    socketio.run(app, port=os.getenv("PORT", default=5000), debug=os.getenv("DEBUG", default=True), host='0.0.0.0')

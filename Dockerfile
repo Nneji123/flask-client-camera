@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 ADD . . 
 
-CMD python app.py
+CMD gunicorn -b 0.0.0.0:5000 --worker-class eventlet -w 1 app:app
