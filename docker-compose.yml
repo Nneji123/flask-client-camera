@@ -2,7 +2,7 @@ services:
   app:
     build: .
     container_name: flask-client-camera
-    command: python app.py
+    command: gunicorn -b 0.0.0.0:5000 --worker-class eventlet -w 1 app:app
     ports:
       - 8080:5000
     volumes:
