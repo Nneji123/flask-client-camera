@@ -2,13 +2,14 @@ import base64
 import os
 
 import cv2
+import face_recognition
 import numpy as np
 from flask import Flask, render_template, send_from_directory
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__, static_folder="./templates/static")
 app.config["SECRET_KEY"] = "secret!"
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode="eventlet")
 
 
 @app.route("/favicon.ico")
@@ -53,6 +54,44 @@ def test_connect():
     emit("my response", {"data": "Connected"})
 
 
+def capture_face():
+    """
+    The capture_face function is a generator function that captures frames from the camera, encodes them into
+    a JPEG format, and returns the encoded frame. The function also yields each encoded frame as it is captured.
+
+    :return: A generator object that yields the frame by frame data from a camera
+    """
+    global out, capture, rec_frame, frame
+    camera = cv2.VideoCapture(0)
+    while True:
+        success, frame = camera.read()
+        if success:
+            # detect faces
+            face_locations = face_recognition.face_locations(frame)
+            if len(face_locations) > 0:
+                # draw bounding boxes around the faces
+                for (top, right, bottom, left) in face_locations:
+                    cv2.rectangle(frame, (left, top),
+                                  (right, bottom), (0, 0, 255), 2)
+                    cv2.rectangle(frame, (left, bottom - 35),
+                                  (right, bottom), (0, 0, 255), cv2.FILLED)
+                    font = cv2.FONT_HERSHEY_DUPLEX
+                    text = "Capture Face!"
+                    cv2.putText(frame, text, (left + 6, bottom - 6),
+                                font, 1.0, (255, 255, 255), 1)
+            try:
+                ret, buffer = cv2.imencode(".jpg", frame)
+                frame = buffer.tobytes()
+                yield (
+                    b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n"
+                )
+            except Exception as e:
+                pass
+        else:
+            pass
+
+    camera.release()
+
 @socketio.on("image")
 def receive_image(image):
     """
@@ -65,7 +104,21 @@ def receive_image(image):
     """
     # Decode the base64-encoded image data
     image = base64_to_image(image)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    frame = image
+    # detect faces
+    face_locations = face_recognition.face_locations(frame)
+    if len(face_locations) > 0:
+        # draw bounding boxes around the faces
+        for (top, right, bottom, left) in face_locations:
+            cv2.rectangle(frame, (left, top),
+                        (right, bottom), (0, 0, 255), 2)
+            cv2.rectangle(frame, (left, bottom - 35),
+                        (right, bottom), (0, 0, 255), cv2.FILLED)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            text = "Capture Face!"
+            cv2.putText(frame, text, (left + 6, bottom - 6),
+            font, 1.0, (255, 255, 255), 1)
+    gray = frame
     frame_resized = cv2.resize(gray, (640, 360))
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
     result, frame_encoded = cv2.imencode(".jpg", frame_resized, encode_param)
