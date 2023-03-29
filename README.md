@@ -61,7 +61,7 @@ Click the button below to deploy the application to `render.com`
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
 
 ## License
-[MIT]
+[MIT](./README.md)
 
 
 
